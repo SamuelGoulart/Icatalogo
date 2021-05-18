@@ -27,6 +27,10 @@ switch ($_POST["acao"]) {
             $_SESSION["mensagem"] = "Categoria " . $descricao . " adicionado com sucesso! ";
         }
 
+<<<<<<< HEAD
+=======
+        break;
+>>>>>>> 827a1353892c2c4248ee9540dcb1ceaf290ef914
     case "deletar":
         if (isset($_POST["categoriaId"]) && $_POST["categoriaId"] != "") {
 
