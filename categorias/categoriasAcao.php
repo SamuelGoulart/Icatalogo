@@ -37,7 +37,7 @@ switch ($_POST["acao"]) {
         }else{
             $_SESSION["mensagem"] = "Ops, houve algum erro";
         }
-
+        
     case "deletar":
         if (isset($_POST["categoriaId"]) && $_POST["categoriaId"] != "") {
 
