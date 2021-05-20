@@ -42,7 +42,7 @@ footer {
   background-color: var(--backgroundSecondary);
 }
 
-input {
+input, select {
   padding: 6px 8px;
   border: 2px solid transparent;
   font-size: 16px;
@@ -120,21 +120,11 @@ h1 em {
   height: 50px;
 }
 
-#mensagem {
-  width: auto;
-  height: 50px;
-  background-color:#006600;
-  color: #FFFFFF;
-  text-indent: 15px;
-  right: 0;
-  padding: 15px;
-  margin-top: 60px;
-}
 
 #mensagem.displayNome{
   display: none;
 }
-
+/* 
 [data-anime] {
   opacity: 0;
   transition: .3s;
@@ -147,4 +137,4 @@ h1 em {
 [data-anime].animate {
   opacity: 1;
   transform: translate3d(0px, 0px, 0px);
-}
+} */

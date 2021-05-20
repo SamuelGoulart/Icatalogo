@@ -1,10 +1,26 @@
-<?php
-session_start();
-?>
-<link href="/web-backend/aula-14/componentes/header/header.css" rel="stylesheet" />
+
+<link href="/icatalogo/componentes/header/header.css" rel="stylesheet" />
+<div class="mensagens">
+    <?php
+    if (isset($_SESSION["erros"])) {
+        foreach ($_SESSION["erros"] as $erro) {
+    ?>
+            <p><?php echo $erro ?></p>
+        <?php
+        }
+    }
+    if (isset($_SESSION["mensagem"])) {
+        ?>
+        <p><?php echo $_SESSION["mensagem"]; ?></p>
+    <?php
+    }
+    unset($_SESSION["erros"]);
+    unset($_SESSION["mensagem"]);
+    ?>
+</div>
 <header class="header">
     <figure>
-        <img src="/web-backend/aula-14/imgs/logo.png" />
+        <img src="/icatalogo/imgs/logo.png" />
     </figure>
     <input type="search" placeholder="Pesquisar" />
     <?php
@@ -17,7 +33,7 @@ session_start();
         </nav>
         <div id="container-login" class="container-login">
             <h1>Fazer Login</h1>
-            <form method="POST" action="/web-backend/aula-14/componentes/header/acoesLogin.php">
+            <form method="POST" action="/icatalogo/componentes/header/acoesLogin.php">
                 <input type="hidden" name="acao" value="login" />
                 <input type="text" name="usuario" placeholder="Usuário" />
                 <input type="password" name="senha" placeholder="Senha" />
@@ -32,7 +48,7 @@ session_start();
                 <a id="menu-admin" onclick="logout()">Sair</a>
             </ul>
         </nav>
-        <form id="form-logout" style="display:none" method="POST" action="/web-backend/aula-14/componentes/header/acoesLogin.php">
+        <form id="form-logout" style="display:none" method="POST" action="/icatalogo/componentes/header/acoesLogin.php">
             <input type="hidden" name="acao" value="logout" />
         </form>
     <?php
@@ -40,9 +56,13 @@ session_start();
     ?>
 </header>
 <script lang="javascript">
+    setTimeout(() => {
+        document.querySelector('.mensagens').style.display = 'none'
+    }, 5000);
+
     document.querySelector("#menu-admin").addEventListener("click", toggleLogin);
 
-    function logout(){
+    function logout() {
         document.querySelector("#form-logout").submit();
     }
 

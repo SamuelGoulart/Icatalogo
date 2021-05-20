@@ -25,13 +25,20 @@ $resultado = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
 </head>
 
 <body>
-  <header class="header" style="justify-content: center;">
-    <input type="search" placeholder="Pesquisar" />
-  </header>
+  <?php  
+   include("../../componentes/header/header.php");
+
+   if (!isset($_SESSION['usuarioId'])) {
+     
+    $_SESSION["mensagem"] = "Você precisa fazer login para acessar essa página.";
+    
+    header("location: ../index.php");
+   }
+  ?>
   <div class="content">
     <section class="produtos-container">
       <main>
-        <form class="form-produto" method="POST" action="./produtosAcao.php">
+        <form class="form-produto" method="POST" action="./produtosAcao.php" enctype="multipart/form-data" >
           <ul>
             <?php
             //verifica se existe erros na sessão do usuário
@@ -78,15 +85,20 @@ $resultado = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
             <input type="text" id="desconto" name="desconto">
           </div>
           <div class="input-group">
-            <select name="categoria">
+          <label id="categoria" for="desconto">Categoria</label>
+            <select id="categoria" name="categoria" required>
               <option selected disabled>Selecione a categoria</option>
               <?php while ($categorias = mysqli_fetch_array($resultado)) {
               ?>
-                <option><?= $categorias["descricao"] ?></option>
+                <option value="<?= $categorias['id']?>" ><?= $categorias["descricao"] ?></option>
               <?php
               }
               ?>
             </select>
+          </div>
+          <div class="input-group" >
+            <label for="foto">Foto</label>
+            <input type="file" name="foto" id="foto" accept="image/*" />
           </div>
           <button onclick="javascript:window.location.href = '../'">Cancelar</button>
           <button>Salvar</button>

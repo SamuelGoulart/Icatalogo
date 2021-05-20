@@ -12,9 +12,7 @@ create table tbl_produto(
     valor decimal not null,
     desconto int,
     imagem varchar(500)
-<<<<<<< HEAD
 );
-
 
 create table tbl_administrador(
    id int primary key auto_increment,
@@ -36,6 +34,4 @@ create table tbl_categoria (
 );
 
 insert into tbl_categoria(descricao) value ('Acessórios');
-=======
-);
->>>>>>> 827a1353892c2c4248ee9540dcb1ceaf290ef914
+

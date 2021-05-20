@@ -1,6 +1,7 @@
-a{
+a {
   text-decoration: none;
 }
+
 .header {
   position: fixed;
   height: 60px;
@@ -85,4 +86,14 @@ a{
   font-size: 20px;
 }
 
+.mensagens{
+  position: absolute;
+  top: 65px;
+  right: 0;
+  padding: 15px;
 
+  background-color: var(--accentPrimary);
+  border: 2px solid var(--overlay) ;
+  border-radius: 6px;
+  
+}

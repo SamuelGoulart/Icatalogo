@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 require("../database/conexao.php");
 
 $query = " SELECT * FROM tbl_produto ";
@@ -63,7 +66,7 @@ $resultado = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
                 ?>
                     <article class="card-produto">
                         <figure>
-                            <img src="<?= $informacoesProduto["imagem"]  ?>" />
+                            <img src="fotos/<?= $informacoesProduto['imagem']  ?>" />
                         </figure>
                         <section>
                             <span class="preco"><?= str_replace(".", ",", $informacoesProduto["valor"]); ?></span>

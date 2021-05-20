@@ -1,11 +1,12 @@
 <?php
 
+session_start();
 
 require("../database/conexao.php");
 
-$query = " SELECT * FROM tbl_categoria ";
+$sql = " SELECT * FROM tbl_categoria ";
 
-$resultado = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
+$resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 
 
 ?>
@@ -28,25 +29,6 @@ $resultado = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
     ?>
 
     <div class="content">
-        <div style="position: absolute; top: 0; right: 0;">
-            <?php
-            if (isset($_SESSION["erros"])) {
-            ?>
-                <p id="mensagem" data-anime="right"><?php echo $_SESSION["erros"]; ?></p>
-
-            <?php
-            }
-            if (isset($_SESSION["mensagem"])) {
-            ?>
-
-                <p id="mensagem" data-anime="right"><?php echo $_SESSION["mensagem"]; ?></p>
-
-            <?php
-            }
-            unset($_SESSION["erros"]);
-            unset($_SESSION["mensagem"]);
-            ?>
-        </div>
 
         <section class="categorias-container">
             <main>
@@ -62,33 +44,34 @@ $resultado = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
                 </form>
                 <h1>Lista de Categorias</h1>
                 <?php
+                if (mysqli_num_rows($resultado) == 0) {
+                    echo "<p style='text-align: center'> Nenhuma categoria cadastrada.</p>";
+                }
                 while ($categorias = mysqli_fetch_array($resultado)) {
                 ?>
-                    <div class="card-categorias" style="max-height: 48px;" >
+                    <div class="card-categorias">
                         <?= $categorias["descricao"]; ?>
-                        <form action="./categoriasAcao.php" method="POST">
-                            <input type="hidden" name="acao" value="deletar"></input>
-                            <input type="hidden" name="categoriaId" value="<?= $categorias["id"] ?>"></input>
-                            <button >
-                                <img src="https://icons.veryicon.com/png/o/construction-tools/coca-design/delete-189.png" />
-                            </button>
-                        </form>
+                        <img onclick="deletar(<?= $categorias['id'] ?>)" style="width: 20px;" src="https://icons.veryicon.com/png/o/construction-tools/coca-design/delete-189.png" />
+
                     </div>
                 <?php
                 }
                 ?>
+                <form id="form-deletar" action="./categoriasAcao.php" method="POST">
+                    <input type="hidden" name="acao" value="deletar"></input>
+                    <input type="hidden" id="categoriaId" name="categoriaId" value="" ></input>
+                </form>
             </main>
         </section>
     </div>
-    <script>
-        setTimeout(() => {
-            document.querySelector('#mensagem').classList.add('animate')
-        }, 1000);
 
-        setTimeout(() => {
-            document.querySelector('#mensagem').classList.add('displayNome')
-        }, 5000);
+    <script lang="javascript" >
+           function deletar(catagoriaId){
+               document.querySelector('#categoriaId').value = catagoriaId
+               document.querySelector('#form-deletar').submit();
+           }
     </script>
+
 </body>
 
 </html>
