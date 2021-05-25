@@ -8,7 +8,6 @@ $query = " SELECT * FROM tbl_categoria ";
 
 $resultado = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
 
-
 ?>
 
 <!DOCTYPE html>

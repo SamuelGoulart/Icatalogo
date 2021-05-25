@@ -1,26 +1,21 @@
 
-<link href="/icatalogo/componentes/header/header.css" rel="stylesheet" />
-<div class="mensagens">
-    <?php
-    if (isset($_SESSION["erros"])) {
-        foreach ($_SESSION["erros"] as $erro) {
-    ?>
-            <p><?php echo $erro ?></p>
-        <?php
-        }
-    }
-    if (isset($_SESSION["mensagem"])) {
-        ?>
+<?php
+if (isset($_SESSION["mensagem"])) {
+?>
+    <div class="mensagens">
         <p><?php echo $_SESSION["mensagem"]; ?></p>
-    <?php
-    }
-    unset($_SESSION["erros"]);
-    unset($_SESSION["mensagem"]);
-    ?>
-</div>
+    </div>
+<?php
+}
+unset($_SESSION["mensagem"]);
+
+?>
 <header class="header">
+<link href="/icatalogo/componentes/header/header.css" rel="stylesheet" />
     <figure>
-        <img src="/icatalogo/imgs/logo.png" />
+        <a href="/icatalogo/produtos">
+            <img src="/icatalogo/imgs/logo.png" />
+        </a>
     </figure>
     <input type="search" placeholder="Pesquisar" />
     <?php
@@ -57,7 +52,7 @@
 </header>
 <script lang="javascript">
     setTimeout(() => {
-        document.querySelector('.mensagens').style.display = 'none'
+        document.querySelector('.mensagens').style.display = 'none';
     }, 5000);
 
     document.querySelector("#menu-admin").addEventListener("click", toggleLogin);

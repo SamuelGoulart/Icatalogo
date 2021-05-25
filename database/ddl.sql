@@ -35,3 +35,5 @@ create table tbl_categoria (
 
 insert into tbl_categoria(descricao) value ('Acessórios');
 
+
+ALTER TABLE tbl_produto ADD COLUMN categoria_id INT, ADD FOREIGN KEY (categoria_id) REFERENCES tbl_categoria(id);

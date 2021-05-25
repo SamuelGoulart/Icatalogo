@@ -4,9 +4,12 @@ session_start();
 
 require("../database/conexao.php");
 
-$query = " SELECT * FROM tbl_produto ";
+$sql = "SELECT p.*, c.descricao as categoria FROM tbl_produto p
+INNER JOIN tbl_categoria c ON p.categoria_id = c.id
+ORDER BY p.id DESC;";
 
-$resultado = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
+
+$resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 
 ?>
 
@@ -26,26 +29,6 @@ $resultado = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
     include("../componentes/header/header.php");
     ?>
     <div class="content">
-        <div style="position: absolute; top: 0; right: 0;">
-            <?php
-            if (isset($_SESSION["erros"])) {
-            ?>
-                <p id="mensagem" data-anime="right"><?php echo $_SESSION["erros"][0]; ?></p>
-
-            <?php
-            }
-            if (isset($_SESSION["mensagem"])) {
-            ?>
-
-                <p id="mensagem" data-anime="right"><?php echo $_SESSION["mensagem"]; ?></p>
-
-            <?php
-            }
-            unset($_SESSION["erros"]);
-            unset($_SESSION["mensagem"]);
-            ?>
-        </div>
-
         <section class="produtos-container">
             <?php
             //autorização
@@ -54,8 +37,8 @@ $resultado = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
             if (isset($_SESSION["usuarioId"])) {
             ?>
                 <header>
-                    <a href="./novo/" target='_blank'> <button>Novo Produto</button> </a>
-                    <a href="../categorias/" target='_blank'> <button>Adicionar Categoria</button> </a>
+                    <a href="./novo/"> <button>Novo Produto</button> </a>
+                    <a href="../categorias/"> <button>Adicionar Categoria</button> </a>
                 </header>
             <?php
             }
@@ -70,11 +53,18 @@ $resultado = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
                         </figure>
                         <section>
                             <span class="preco"><?= str_replace(".", ",", $informacoesProduto["valor"]); ?></span>
-                            <span class="parcelamento">ou em <em>10x <?= str_replace(".", ",", $informacoesProduto["valor"]); ?> sem juros</em></span>
+                            <?php
+                                 if ($informacoesProduto["valor"] > 999) {
+                                    $parcelamento = 12;
+                                 }else{
+                                    $parcelamento = 6;
+                                 }
+                            ?>
+                            <span class="parcelamento">ou em <em><?= $parcelamento ?> x <?= str_replace(".", ",", $informacoesProduto["valor"]); ?> sem juros</em></span>
 
-                            <span class="descricao"><?= $informacoesProduto["descricao"]  ?></span>
+                            <span class="descricao"><?= $informacoesProduto["descricao"] ?></span>
                             <span class="categoria">
-                                <em>Calçados</em> <em>Vestuário</em><em>Calçados</em>
+                                <em><?= $informacoesProduto["categoria"]  ?></em>
                             </span>
                         </section>
                         <footer>
