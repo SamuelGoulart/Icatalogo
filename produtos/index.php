@@ -52,15 +52,23 @@ $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
                             <img src="fotos/<?= $informacoesProduto['imagem']  ?>" />
                         </figure>
                         <section>
-                            <span class="preco"><?= str_replace(".", ",", $informacoesProduto["valor"]); ?></span>
                             <?php
-                                 if ($informacoesProduto["valor"] > 999) {
-                                    $parcelamento = 12;
-                                 }else{
-                                    $parcelamento = 6;
-                                 }
+                            $desconto =  $informacoesProduto["desconto"];
+                            $valor = $informacoesProduto["valor"];
+                            $valorComDesconto = $valor - $valor * $desconto / 100;
+
+                            $qtdParcelas = $valorComDesconto > 1000 ? 12 : 6;
+                            $valorParcela = $valorComDesconto / $qtdParcelas;
+
                             ?>
-                            <span class="parcelamento">ou em <em><?= $parcelamento ?> x <?= str_replace(".", ",", $informacoesProduto["valor"]); ?> sem juros</em></span>
+                            <span class="preco">
+                                <p style="text-decoration: line-through; font-size: 1rem;"><?= $valor ?></p> <?= $valor > 999 ? number_format($valorComDesconto, 2)  : str_replace(".", ",", $valorComDesconto) ; ?>
+                            </span>
+
+                            <span class="parcelamento">ou em <em><?= $qtdParcelas ?> x <?= 
+                            number_format($valorParcela, 2, ",", ".") ?> sem juros</em></span>
+
+
 
                             <span class="descricao"><?= $informacoesProduto["descricao"] ?></span>
                             <span class="categoria">
