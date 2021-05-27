@@ -37,3 +37,9 @@ insert into tbl_categoria(descricao) value ('Acessórios');
 
 
 ALTER TABLE tbl_produto ADD COLUMN categoria_id INT, ADD FOREIGN KEY (categoria_id) REFERENCES tbl_categoria(id);
+
+SELECT p.*, c.descricao as categoria FROM tbl_produto p
+INNER JOIN tbl_categoria c ON p.categoria_id = c.id
+WHERE p.descricao LIKE "%?%"
+OR c.descricao LIKE "%?%"
+ORDER BY p.id DESC;

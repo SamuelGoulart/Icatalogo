@@ -4,10 +4,22 @@ session_start();
 
 require("../database/conexao.php");
 
-$sql = "SELECT p.*, c.descricao as categoria FROM tbl_produto p
-INNER JOIN tbl_categoria c ON p.categoria_id = c.id
-ORDER BY p.id DESC;";
 
+if (empty($_GET["pesquisar"])) {
+
+    $sql = "SELECT p.*, c.descricao as categoria FROM tbl_produto p
+    INNER JOIN tbl_categoria c ON p.categoria_id = c.id
+    ORDER BY p.id DESC;";
+} else {
+
+    $pesquisar = $_GET["pesquisar"];
+
+    $sql = "SELECT p.*, c.descricao as categoria FROM tbl_produto p
+    INNER JOIN tbl_categoria c ON p.categoria_id = c.id
+    WHERE p.descricao LIKE '%" . $pesquisar . "'
+    OR c.descricao LIKE '%" . $pesquisar . "'
+    ORDER BY p.id DESC; ";
+}
 
 $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 
@@ -45,34 +57,45 @@ $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
             ?>
             <main>
                 <?php
-                while ($informacoesProduto = mysqli_fetch_array($resultado)) {
+                while ($produto = mysqli_fetch_array($resultado)) {
                 ?>
                     <article class="card-produto">
                         <figure>
-                            <img src="fotos/<?= $informacoesProduto['imagem']  ?>" />
+                            <img src="fotos/<?= $produto['imagem']  ?>" />
+                            <?php
+                            if (isset($_SESSION["usuarioId"])) {
+                            ?>
+                                <img onclick="deletar(<?= $produto['id'] ?>)" class="iconeLixeiraApagarProduto" src="https://icons.veryicon.com/png/o/construction-tools/coca-design/delete-189.png" alt="">
+                            <?php
+                            }
+                            ?>
+                            <form id="form-deletar" action="./novo/produtosAcao.php" method="POST">
+                                <input type="hidden" name="acao" value="deletar"></input>
+                                <input type="hidden" id="produtoId" name="produtoId"></input>
+                                <input type="hidden" value="../fotos/<?=$produto['imagem']?>" name="caminhoImagem"></input>
+                            </form>
                         </figure>
                         <section>
                             <?php
-                            $desconto =  $informacoesProduto["desconto"];
-                            $valor = $informacoesProduto["valor"];
-                            $valorComDesconto = $valor - $valor * $desconto / 100;
+                            $desconto =  $produto["desconto"];
+                            $valor = $produto["valor"];
 
-                            $qtdParcelas = $valorComDesconto > 1000 ? 12 : 6;
-                            $valorParcela = $valorComDesconto / $qtdParcelas;
+                            $valorFinal = ($desconto > 0) ? $valor - $valor * $desconto / 100 : $valor;
+
+                            $qtdParcelas = $valorFinal > 1000 ? 12 : 6;
+                            $valorParcela = $valorFinal / $qtdParcelas;
 
                             ?>
                             <span class="preco">
-                                <p style="text-decoration: line-through; font-size: 1rem;"><?= $valor ?></p> <?= $valor > 999 ? number_format($valorComDesconto, 2)  : str_replace(".", ",", $valorComDesconto) ; ?>
+                                <?= $valor > 999 ? number_format($valorFinal, 2)  : str_replace(".", ",", $valorFinal);  ?> <em><?= $desconto ?>% off </em>
                             </span>
 
-                            <span class="parcelamento">ou em <em><?= $qtdParcelas ?> x <?= 
-                            number_format($valorParcela, 2, ",", ".") ?> sem juros</em></span>
+                            <span class="parcelamento">ou em <em><?= $qtdParcelas ?> x
+                                    <?= number_format($valorParcela, 2, ",", ".") ?> sem juros</em></span>
 
-
-
-                            <span class="descricao"><?= $informacoesProduto["descricao"] ?></span>
+                            <span class="descricao"><?= $produto["descricao"] ?></span>
                             <span class="categoria">
-                                <em><?= $informacoesProduto["categoria"]  ?></em>
+                                <em><?= $produto["categoria"]  ?></em>
                             </span>
                         </section>
                         <footer>
@@ -90,7 +113,12 @@ $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
         SENAI 2021 - Todos os direitos reservados
     </footer>
 
-    <script>
+    <script lang="javascript">
+        function deletar(produtoId) {
+            document.querySelector('#produtoId').value = produtoId
+            document.querySelector('#form-deletar').submit();
+        }
+
         setTimeout(() => {
             document.querySelector('#mensagem').classList.add('animate')
         }, 500);

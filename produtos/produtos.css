@@ -52,6 +52,11 @@
 .card-produto section .preco {
   font-size: 26px;
 }
+.card-produto section .preco > em {
+  font-size: 14px;
+  color: green;
+  text-align: line-through;
+}
 
 .card-produto section .parcelamento {
   font-size: 14px;
@@ -79,4 +84,9 @@
   margin-top: 16px;
   font-size: 16px;
   color: var(--textSecundary);
+}
+
+.iconeLixeiraApagarProduto{
+   width: 30px !important;
+   margin-bottom: 12rem;
 }

@@ -120,4 +120,28 @@ switch ($_POST["acao"]) {
         header("location: index.php");
 
         break;
+
+    case 'deletar':
+
+        if (isset($_POST["produtoId"]) && $_POST["produtoId"] != "") {
+
+            $produtoId = $_POST["produtoId"];
+            $caminhoImagem = $_POST["caminhoImagem"];
+ 
+            $sqlDelete ="DELETE FROM tbl_produto WHERE id = $produtoId; ";
+            unlink("../fotos/$caminhoImagem");
+            
+            $resultadoDelete  = mysqli_query($conexao, $sqlDelete);
+
+            if ($resultadoDelete) {
+                $_SESSION["mensagem"] = "Produto deletada com sucesso";
+            }else{
+                $_SESSION["mensagem"] = "Ops, erro ao excluir o produto";
+            }
+
+            header("location: ../index.php");
+        }
+    default:
+
+        break;
 }

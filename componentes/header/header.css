@@ -13,13 +13,35 @@ a {
   justify-content: space-between;
 }
 
-.header input {
+.header form {
   width: 50%;
+
+  display: flex;
+}
+
+.header form > input{
+  flex: 1;
+}
+
+.header form > input:focus{
+  outline: none;
+}
+
+.header form > button{
+  margin-left: -8px;
+  background-color: white;
+
+  outline: none;
+}
+
+.header form > button img{
+  width: 20px;
 }
 
 .header>figure {
   margin-top: 30px;
   padding: 5px;
+
   box-shadow: 0px 0px 10px 5px var(--boxShadow);
   background-color: var(--accentSecondary);
   border-radius: 50%;

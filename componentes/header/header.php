@@ -1,4 +1,3 @@
-
 <?php
 if (isset($_SESSION["mensagem"])) {
 ?>
@@ -11,13 +10,16 @@ unset($_SESSION["mensagem"]);
 
 ?>
 <header class="header">
-<link href="/icatalogo/componentes/header/header.css" rel="stylesheet" />
+    <link href="/icatalogo/componentes/header/header.css" rel="stylesheet" />
     <figure>
         <a href="/icatalogo/produtos">
             <img src="/icatalogo/imgs/logo.png" />
         </a>
     </figure>
-    <input type="search" placeholder="Pesquisar" />
+    <form action="/icatalogo/produtos/" method="GET" >
+        <input type="text" name="pesquisar" placeholder="Pesquisar" />
+        <button> <img src="/icatalogo/imgs/lupa.svg" ></button>
+    </form>
     <?php
     if (!isset($_SESSION["usuarioId"])) {
     ?>
