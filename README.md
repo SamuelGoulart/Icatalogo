@@ -2,8 +2,6 @@
 
 <br>
 
-<img align="right" src="https://user-images.githubusercontent.com/62961331/119997986-a9d95100-bfa6-11eb-8c26-578d23c1bf70.png" alt="Gif de cadastro cliente">
-
 <h2>📕 Indice</h2>
 
 <ul>
