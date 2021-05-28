@@ -50,6 +50,7 @@ Projeto desenvolvido durante o curso de técnico em desenvolvimento de sistemas.
   <li>Upload de imagem</li>
   <li>Filtro de pesquisa</li>
   <li>Relacionamentos entre tabelas</li>
+  <li>Salvar senha criptografada e sua importância</li>
 </ul>
 
 
