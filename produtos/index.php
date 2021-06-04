@@ -8,18 +8,17 @@ require("../database/conexao.php");
 if (empty($_GET["pesquisar"])) {
 
     $sql = "SELECT p.*, c.descricao as categoria FROM tbl_produto p
-    INNER JOIN tbl_categoria c ON p.categoria_id = c.id
-    ORDER BY p.id DESC;";
+    INNER JOIN tbl_categoria c ON p.categoria_id = c.id";
 } else {
-
     $pesquisar = $_GET["pesquisar"];
 
     $sql = "SELECT p.*, c.descricao as categoria FROM tbl_produto p
-    INNER JOIN tbl_categoria c ON p.categoria_id = c.id
-    WHERE p.descricao LIKE '%" . $pesquisar . "'
-    OR c.descricao LIKE '%" . $pesquisar . "'
-    ORDER BY p.id DESC; ";
+    INNER JOIN tbl_categoria c ON p.categoria_id = c.id";
+
+    $sql .= "  WHERE p.descricao LIKE '%" . $pesquisar . "' OR c.descricao LIKE '%" . $pesquisar . "'";
 }
+
+$sql .= " ORDER BY p.id DESC; ";
 
 $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 
@@ -59,21 +58,22 @@ $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
                 <?php
                 while ($produto = mysqli_fetch_array($resultado)) {
                 ?>
+
                     <article class="card-produto">
+                        <?php
+                        if (isset($_SESSION["usuarioId"])) {
+
+                        ?>
+                            <div class="acoes-produtos">
+                                <img style="width: 30px;" onclick="javascript: window.location = './editar?id=<?= $produto['id'] ?>'" src="../imgs/edit.svg" />
+                                <img onclick="deletar(<?= $produto['id'] ?>)" style="width: 30px;" src="/icatalogo/imgs/trash-can.svg" alt="">
+                            </div>
+                        <?php
+                        }
+                        ?>
                         <figure>
-                            <img src="fotos/<?= $produto['imagem']  ?>" />
-                            <?php
-                            if (isset($_SESSION["usuarioId"])) {
-                            ?>
-                                <img onclick="deletar(<?= $produto['id'] ?>)" class="iconeLixeiraApagarProduto" src="https://icons.veryicon.com/png/o/construction-tools/coca-design/delete-189.png" alt="">
-                            <?php
-                            }
-                            ?>
-                            <form id="form-deletar" action="./novo/produtosAcao.php" method="POST">
-                                <input type="hidden" name="acao" value="deletar"></input>
-                                <input type="hidden" id="produtoId" name="produtoId"></input>
-                                <input type="hidden" value="../fotos/<?=$produto['imagem']?>" name="caminhoImagem"></input>
-                            </form>
+                            <img src="./fotos/<?= $produto['imagem'] ?>" alt="">
+
                         </figure>
                         <section>
                             <?php
@@ -87,7 +87,7 @@ $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 
                             ?>
                             <span class="preco">
-                                <?= $valor > 999 ? number_format($valorFinal, 2)  : str_replace(".", ",", $valorFinal);  ?> <em><?= $desconto ?>% off </em>
+                                <?= number_format($valorFinal, 2, ",", ".")  ?> <em><?= $desconto ?>% off </em>
                             </span>
 
                             <span class="parcelamento">ou em <em><?= $qtdParcelas ?> x
@@ -106,6 +106,10 @@ $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
                 <?php
                 }
                 ?>
+                <form method="POST" id="deleteProduto" action="./novo/produtosAcao.php">
+                    <input type="hidden" name="acao" value="deletar" />
+                    <input type="hidden" name="produtoId" id="produtoId" />
+                </form>
             </main>
         </section>
     </div>
@@ -115,8 +119,10 @@ $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
 
     <script lang="javascript">
         function deletar(produtoId) {
-            document.querySelector('#produtoId').value = produtoId
-            document.querySelector('#form-deletar').submit();
+            if (confirm("Tem certeza que deseja deletar este produto?")) {
+                document.querySelector("#produtoId").value = produtoId;
+                document.querySelector("#deleteProduto").submit();
+            }
         }
 
         setTimeout(() => {

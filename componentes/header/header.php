@@ -16,9 +16,23 @@ unset($_SESSION["mensagem"]);
             <img src="/icatalogo/imgs/logo.png" />
         </a>
     </figure>
-    <form action="/icatalogo/produtos/" method="GET" >
-        <input type="text" name="pesquisar" placeholder="Pesquisar" />
-        <button> <img src="/icatalogo/imgs/lupa.svg" ></button>
+    <form action="/icatalogo/produtos/" method="GET">
+        <input type="text" value="<?= isset($_GET["pesquisar"]) ? $_GET["pesquisar"] : "" ?>" name="pesquisar" id="pesquisar" placeholder="Pesquisar" />
+        <button <?= isset($_GET["pesquisar"]) && $_GET["pesquisar"] != "" ? "onClick='limparFiltro()'" : ""?> >
+            <?php
+            if (isset($_GET["pesquisar"]) && $_GET["pesquisar"] != "") {
+            ?> 
+            <img src="/icatalogo/imgs/close.svg" alt="" srcset="">
+            <?php
+            }else {
+
+             ?>
+                <img src="/icatalogo/imgs/lupa.svg">
+            <?php
+            }
+            ?>
+
+        </button>
     </form>
     <?php
     if (!isset($_SESSION["usuarioId"])) {
@@ -80,5 +94,8 @@ unset($_SESSION["mensagem"]);
             containerLogin.style.opacity = 0;
             containerLogin.style.height = "0px";
         }
+    }
+    function limparFiltro(){
+        document.querySelector("#pesquisar").value = ""
     }
 </script>

@@ -46,9 +46,9 @@ switch ($_POST["acao"]) {
 
         //verificar se o usuário existe e se a senha está correta
         if (!$usuario || !password_verify($senha, $usuario["senha"])) {
-            $erros[] = "Usuário e/ou senha inválidos";
+            $erros = "Usuário e/ou senha inválidos";
 
-            $_SESSION["erros"] = $erros;
+            $_SESSION["mensagem"] = $erros;
         } else {
             //se estiver correta, salvar o id e o nome do usuário na sessão
             $_SESSION["usuarioId"] = $usuario["id"];
@@ -61,6 +61,8 @@ switch ($_POST["acao"]) {
         header("location: ../../produtos/index.php");
 
         break;
+
+
 
     case "logout":
         //implementar o logout

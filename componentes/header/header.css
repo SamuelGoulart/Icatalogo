@@ -11,25 +11,29 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 9;
 }
 
-.header form {
+.header > form {
   width: 50%;
 
   display: flex;
 }
 
-.header form > input{
+.header > form > input{
   flex: 1;
 }
 
-.header form > input:focus{
+.header > form > input:focus{
   outline: none;
 }
 
-.header form > button{
+.header > form > button{
   margin-left: -8px;
   background-color: white;
+  border: 0;
+  font-size: 28px;
+  padding: 0px 16px;
 
   outline: none;
 }
@@ -80,6 +84,7 @@ a {
   background-color: var(--backgroundPrimary);
   border-radius: 6px;
   box-shadow: 0px 0px 10px var(--boxShadow);
+  
 }
 
 .container-login:before {
@@ -113,6 +118,7 @@ a {
   top: 65px;
   right: 0;
   padding: 15px;
+  z-index: 9;
 
   background-color: var(--accentPrimary);
   border: 2px solid var(--overlay) ;
