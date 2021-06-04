@@ -1,5 +1,6 @@
 <h1  align="center" >iCatalogo</h1>
 
+<br>
 
 <h2>📕 Indice</h2>
 
@@ -8,14 +9,16 @@
   <li>Tecnologias utilizadas</li>
   <li>Ferramentas</li>
   <li>O que eu aprendi</li>
-  <li>Preview</li>
+  <li>Clone do projeto</li>
 </ul>
 
 <h2>💻Sobre o projeto</h2>
 
 Catálogo para divulgação de produtos.
 
-Projeto desenvolvido durante o curso de técnico em desenvolvimento de sistemas
+Projeto com foco no back-end, desenvolvido na forma procedural.
+
+Projeto desenvolvido durante o curso de técnico em desenvolvimento de sistemas.
  
 <h2>🚀 Tecnologias utilizadas</h2>
 
@@ -33,8 +36,22 @@ Projeto desenvolvido durante o curso de técnico em desenvolvimento de sistemas
   <li>Visual Studio Code</li>
 </ul>
 
-<h2><img src="https://user-images.githubusercontent.com/62961331/118737562-74509d00-b81b-11eb-86d7-c24d80d64592.png"> O que eu aprendi</h2>
+<h2><img width="30" src="https://user-images.githubusercontent.com/62961331/119981069-91137000-bf93-11eb-9d7b-fcc91896dbf7.png"> O que eu aprendi</h2>
 
+<ul>
+  <li>CRUD</li>
+     <ul>
+       <li>Create (criar) - criar um novo registro.</li>
+       <li>Read (ler) - ler (exibir) as informações das tabelas.</li>
+       <li>Update (atualizar) - atualizar os dados do registro.</li>
+       <li>Delete (apagar) - apagar um registro.</li>
+     </ul>
+  <li>Fazer o login e logout</li>
+  <li>Upload de imagem</li>
+  <li>Filtro de pesquisa</li>
+  <li>Relacionamentos entre tabelas</li>
+  <li>Salvar senha criptografada e sua importância</li>
+</ul>
 
 
 ## 🚀 Começando
