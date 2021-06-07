@@ -16,7 +16,7 @@
 
 Catálogo para divulgação de produtos.
 
-Projeto com foco no back-end, desenvolvido na forma procedural.
+Projeto com foco no back-end.
 
 Projeto desenvolvido durante o curso de técnico em desenvolvimento de sistemas.
  
