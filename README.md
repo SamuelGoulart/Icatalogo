@@ -54,16 +54,64 @@ Projeto desenvolvido durante o curso de técnico em desenvolvimento de sistemas.
 </ul>
 
 
-## 🚀 Começando
+## 🚀 Clone do projeto
 
 Para iniciar, clone o projeto para dentro da sua pasta htdocs.
 
-### 📋 Tarefa
+~~~
 
-Você deve implementar o cadastro de produtos na tela /produtos/novo/index.php
+https://github.com/SamuelGoulart/Icatalogo
+
+~~~
+
+<!-- ### 📋 Tarefa -->
+
+<!-- Você deve implementar o cadastro de produtos na tela /produtos/novo/index.php -->
 
 ### 💾 Criação do Banco de Dados
 
 O arquivo para criar a estrutura do banco está em /database/ddl.sql
-
+<br>
 Copie, cole e execute o código no seu Mysql Workbench
+~~~
+create database icatalogo;
+
+use icatalogo;
+
+create table tbl_produto(
+    id int primary key auto_increment,
+    descricao varchar(255) not null,
+    peso decimal not null,
+    quantidade int not null,
+    cor varchar(100) not null,
+    tamanho varchar(100),
+    valor decimal not null,
+    desconto int,
+    imagem varchar(500)
+);
+
+ALTER TABLE tbl_produto ADD COLUMN categoria_id INT, ADD FOREIGN KEY (categoria_id) REFERENCES tbl_categoria(id);
+
+create table tbl_administrador(
+   id int primary key auto_increment,
+   nome varchar(100) not null,
+   usuario varchar(255) not null,
+   senha varchar (255) not null
+);
+
+create table tbl_categoria (
+    id int primary key auto_increment,
+    descricao varchar(255) not null
+);
+
+insert into tbl_administrador (nome, usuario, senha) values ("Fulano de T
+al","fulano","$2y$10$Pww8WY7k3Nb2E2PNC8dygeY.A7P2/4lx3NSi3RuhwXSTSWA3/yYMe"); 
+~~~
+
+## Observação:
+Para fazer login use:<br>
+ Usuário: fulano <br>
+ Senha : 123456
+
+Se por ventura dar algum erro no login, acesse o aquivo senhas.php, através do navegador.
+Copie a senha criptografada que aparecer, vá até o Mysql Workbench, e atualize o campo senha da tabela tbl_administrador com a nova senha.
