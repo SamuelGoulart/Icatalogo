@@ -10,24 +10,24 @@ unset($_SESSION["mensagem"]);
 
 ?>
 <header class="header">
-    <link href="/icatalogo/componentes/header/header.css" rel="stylesheet" />
+    <link href="/componentes/header/header.css" rel="stylesheet" />
     <figure>
-        <a href="/icatalogo/produtos">
-            <img src="/icatalogo/imgs/logo.png" />
+        <a href="/produtos">
+            <img src="/imgs/logo.png" />
         </a>
     </figure>
-    <form action="/icatalogo/produtos/" method="GET">
+    <form action="./produtos/" method="GET">
         <input type="text" value="<?= isset($_GET["pesquisar"]) ? $_GET["pesquisar"] : "" ?>" name="pesquisar" id="pesquisar" placeholder="Pesquisar" />
         <button <?= isset($_GET["pesquisar"]) && $_GET["pesquisar"] != "" ? "onClick='limparFiltro()'" : ""?> >
             <?php
             if (isset($_GET["pesquisar"]) && $_GET["pesquisar"] != "") {
             ?> 
-            <img src="/icatalogo/imgs/close.svg" alt="" srcset="">
+            <img src="/imgs/close.svg" alt="" srcset="">
             <?php
             }else {
 
              ?>
-                <img src="/icatalogo/imgs/lupa.svg">
+                <img src="/imgs/lupa.svg">
             <?php
             }
             ?>
@@ -44,7 +44,7 @@ unset($_SESSION["mensagem"]);
         </nav>
         <div id="container-login" class="container-login">
             <h1>Fazer Login</h1>
-            <form method="POST" action="/icatalogo/componentes/header/acoesLogin.php">
+            <form method="POST" action="/componentes/header/acoesLogin.php">
                 <input type="hidden" name="acao" value="login" />
                 <input type="text" name="usuario" placeholder="Usuário" />
                 <input type="password" name="senha" placeholder="Senha" />
@@ -59,7 +59,7 @@ unset($_SESSION["mensagem"]);
                 <a id="menu-admin" onclick="logout()">Sair</a>
             </ul>
         </nav>
-        <form id="form-logout" style="display:none" method="POST" action="/icatalogo/componentes/header/acoesLogin.php">
+        <form id="form-logout" style="display:none" method="POST" action="/componentes/header/acoesLogin.php">
             <input type="hidden" name="acao" value="logout" />
         </form>
     <?php

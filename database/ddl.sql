@@ -14,6 +14,9 @@ create table tbl_produto(
     imagem varchar(500)
 );
 
+ALTER TABLE tbl_produto ADD COLUMN categoria_id INT, ADD FOREIGN KEY (categoria_id) REFERENCES tbl_categoria(id);
+
+
 create table tbl_administrador(
    id int primary key auto_increment,
    nome varchar(100) not null,
@@ -21,25 +24,13 @@ create table tbl_administrador(
    senha varchar (255) not null
 );
 
-insert into tbl_administrador (nome, usuario, senha) values ("Fulano de T
-al","fulano","123456"); 
-
-insert into tbl_administrador (nome, usuario, senha) values ("Ciclano da
-Silva","ciclano","654321"); 
-
-
 create table tbl_categoria (
     id int primary key auto_increment,
     descricao varchar(255) not null
 );
 
-insert into tbl_categoria(descricao) value ('Acessórios');
+insert into tbl_administrador (nome, usuario, senha) values ("Fulano de T
+al","fulano","123456"); 
 
-
-ALTER TABLE tbl_produto ADD COLUMN categoria_id INT, ADD FOREIGN KEY (categoria_id) REFERENCES tbl_categoria(id);
-
-SELECT p.*, c.descricao as categoria FROM tbl_produto p
-INNER JOIN tbl_categoria c ON p.categoria_id = c.id
-WHERE p.descricao LIKE "%?%"
-OR c.descricao LIKE "%?%"
-ORDER BY p.id DESC;
+insert into tbl_administrador (nome, usuario, senha) values ("Ciclano da
+Silva","ciclano","654321"); 

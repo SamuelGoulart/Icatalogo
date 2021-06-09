@@ -48,7 +48,7 @@ $resultado = mysqli_query($conexao, $sql);
   <div class="content">
     <section class="produtos-container">
       <main>
-        <form class="form-produto" method="POST" action="/icatalogo/produtos/novo/produtosAcao.php" enctype="multipart/form-data">
+        <form class="form-produto" method="POST" action="../novo/produtosAcao.php" enctype="multipart/form-data">
 
           <ul>
             <?php
@@ -114,7 +114,7 @@ $resultado = mysqli_query($conexao, $sql);
             <label for="foto">Foto</label>
             <input type="file" name="foto" id="foto" accept="image/*" />
           </div>
-          <button onclick="javascript:window.location.href = '../'">Cancelar</button>
+          <button type="button" onclick="javascript:window.location.href = '../'">Cancelar</button>
           <button>Salvar</button>
         </form>
       </main>

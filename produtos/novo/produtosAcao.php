@@ -161,7 +161,7 @@ switch ($_POST["acao"]) {
         $desconto = $_POST["desconto"] != "" ? $_POST["desconto"] : 0;
         $categoriaId = $_POST["categoria"];
 
-        echo $valor;
+        // echo $valor;
 
 
         $sqlInsert = " INSERT INTO  tbl_produto (descricao ,peso , quantidade, cor, tamanho, valor, desconto, imagem, categoria_id) VALUES ('$descricao', $peso, $quantidade,'$cor','$tamanho', $valor,'$desconto','$newFileName', '$categoriaId') ";
@@ -247,7 +247,7 @@ switch ($_POST["acao"]) {
 
 
         //Caso tenha um novo sw arquivo, setamos no banco de dados
-        $sqlUpdate .= $newFileName ? ", imagem = '$newFileName' " : "";
+        $sqlUpdate .= isset($newFileName) ? ", imagem = '$newFileName' " : "";
         $sqlUpdate .= " WHERE id = $produtoId; ";
 
         $resultado = mysqli_query($conexao, $sqlUpdate);

@@ -42,7 +42,7 @@ switch ($_POST["acao"]) {
 
         $usuario = mysqli_fetch_array($resultado);
 
-        var_dump($usuario);
+        //  var_dump($usuario);
 
         //verificar se o usuário existe e se a senha está correta
         if (!$usuario || !password_verify($senha, $usuario["senha"])) {

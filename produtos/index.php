@@ -66,7 +66,7 @@ $resultado = mysqli_query($conexao, $sql) or die(mysqli_error($conexao));
                         ?>
                             <div class="acoes-produtos">
                                 <img style="width: 30px;" onclick="javascript: window.location = './editar?id=<?= $produto['id'] ?>'" src="../imgs/edit.svg" />
-                                <img onclick="deletar(<?= $produto['id'] ?>)" style="width: 30px;" src="/icatalogo/imgs/trash-can.svg" alt="">
+                                <img onclick="deletar(<?= $produto['id'] ?>)" style="width: 30px;" src="/imgs/trash-can.svg" alt="">
                             </div>
                         <?php
                         }
