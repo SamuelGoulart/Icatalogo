@@ -17,7 +17,7 @@ unset($_SESSION["mensagem"]);
         </a>
     </figure>
     <form action="./produtos/" method="GET">
-        <input type="text" value="<?= isset($_GET["pesquisar"]) ? $_GET["pesquisar"] : "" ?>" name="pesquisar" id="pesquisar" placeholder="Pesquisar" />
+        <input type="text" value="<?= isset($_GET["pesquisar"]) ? $_GET["pesquisar"] : "" ?>" name="pesquisar" id="pesquisar" placeholder="Pesquisar" autocomplete="off" />
         <button <?= isset($_GET["pesquisar"]) && $_GET["pesquisar"] != "" ? "onClick='limparFiltro()'" : ""?> >
             <?php
             if (isset($_GET["pesquisar"]) && $_GET["pesquisar"] != "") {
